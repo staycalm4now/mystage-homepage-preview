@@ -160,8 +160,6 @@
   @media (prefers-reduced-motion: reduce){ .hero-aurora,.hero-spin{animation:none} }
   /* -- Hero divider: gentle uphill (4%) slope + dotted line -- */
   .hero-clip{ clip-path: polygon(0 0, 100% 0, 100% calc(100% - 4vw), 0 100%); }
-  .hero-slope{ position:absolute; left:0; bottom:5px; width:100%; height:2px; z-index:5; pointer-events:none; transform-origin:0% 100%; transform:rotate(-2.29deg); opacity:.5; background:repeating-linear-gradient(90deg,rgba(196,181,253,.55) 0 14px,transparent 14px 32px); }
-  @media (max-width: 767px){ .hero-slope{ display:none; } }
   /* ── Live autoplay sample reel (ported from the new homepage) ── */
   .tile { position: relative; overflow: hidden; cursor: pointer; background: #161122; border-radius: 12px; }
   .tile video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.1s cubic-bezier(.22,1,.36,1); }
@@ -235,7 +233,6 @@ SECTION 2: Hero — animated moving gradient background + live video bento
       <div id="hero-bento" class="grid grid-cols-2 gap-3"></div>
     </div>
   </div>
-  <div class="hero-slope" aria-hidden="true"></div>
 </section>
 
 <!-- ============================================================
