@@ -634,24 +634,22 @@ SECTION 9: Pricing — 2 tabs (MyStage Film EUR / Platform USD)
         </div>
       </div>
 
-      <div class="text-center mt-12 mb-2"><span class="inline-block text-[11px] uppercase tracking-[0.18em] text-violet-soft">Or subscribe &amp; save &middot; monthly packages</span></div>
-      <p class="text-center text-on-muted text-[13px] mb-6 max-w-2xl mx-auto">Every euro lands in your wallet, plus a bonus on top. Rolling balance, never expires &mdash; commit longer for a bigger discount.</p>
+      <div class="text-center mt-12 mb-2"><span class="inline-block text-[11px] uppercase tracking-[0.18em] text-violet-soft">Subscribe &amp; save &middot; bonus every month</span></div>
+      <p class="text-center text-on-muted text-[13px] mb-7 max-w-2xl mx-auto">Every month your wallet is topped up with bonus credit on top of what you pay. Commit for 3, 6 or 12 months &mdash; pay less per video and earn more.</p>
 
-      <!-- Commitment-term toggle: Monthly / 3 / 6 / 12 months. The discount applies to what you
-           PAY; the wallet value/bonus stays FIXED (mirrors film.mystage.ai SubscriptionPlans +
-           Stripe coupons commit-3mo-10 / commit-6mo-15 / commit-12mo-20). -->
-      <div class="flex justify-center mb-8">
-        <div class="inline-flex flex-wrap items-center justify-center gap-1 p-1 rounded-full bg-bg-mid/60 border border-cosmic text-[13px]">
-          <button id="film-term-1"  onclick="setFilmTerm(1)"  class="px-4 py-2 rounded-full font-medium transition-all">Monthly</button>
-          <button id="film-term-3"  onclick="setFilmTerm(3)"  class="px-4 py-2 rounded-full font-medium transition-all whitespace-nowrap">3 months &middot; &minus;10%</button>
-          <button id="film-term-6"  onclick="setFilmTerm(6)"  class="px-4 py-2 rounded-full font-medium transition-all whitespace-nowrap">6 months &middot; &minus;15%</button>
-          <button id="film-term-12" onclick="setFilmTerm(12)" class="px-4 py-2 rounded-full font-medium transition-all whitespace-nowrap">12 months &middot; &minus;20%</button>
+      <!-- Commitment-term toggle: Monthly + 3 / 6 / 12 months. 3 months is the default + the
+           promoted "Most popular". No discount percentages — only price, bonus and value. -->
+      <div class="flex justify-center mb-9">
+        <div class="inline-flex flex-wrap items-center justify-center gap-1.5 p-1.5 rounded-2xl bg-bg-mid/60 border border-cosmic text-[13px]">
+          <button id="film-term-1"  onclick="setFilmTerm(1)"  class="px-5 py-2.5 rounded-xl font-semibold transition-all">Monthly</button>
+          <button id="film-term-3"  onclick="setFilmTerm(3)"  class="relative px-5 py-2.5 rounded-xl font-bold transition-all whitespace-nowrap">3 months<span class="absolute -top-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.1em] bg-gold text-[#0b0814]">Most popular</span></button>
+          <button id="film-term-6"  onclick="setFilmTerm(6)"  class="relative px-5 py-2.5 rounded-xl font-bold transition-all whitespace-nowrap">6 months</button>
+          <button id="film-term-12" onclick="setFilmTerm(12)" class="relative px-5 py-2.5 rounded-xl font-bold transition-all whitespace-nowrap">12 months</button>
         </div>
       </div>
 
-      <div id="film-subs-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[clamp(14px,2vw,22px)]"></div>
-      <p id="film-term-note" class="text-center text-violet-soft text-[12px] mt-5" style="display:none">Billed monthly &middot; bonus unchanged &mdash; the discount is on what you pay, never on the value you receive.</p>
-      <p class="text-center text-on-muted text-[12px] mt-3">All prices exclude VAT &middot; subtitles optional per video.</p>
+      <div id="film-subs-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[clamp(14px,2vw,22px)] max-w-5xl mx-auto"></div>
+      <p class="text-center text-on-muted text-[12px] mt-6">Billed monthly &middot; bonus credit added every month &middot; cancel anytime &middot; all prices exclude VAT.</p>
     </div>
 
     <!-- ===== PLATFORM TAB (do-it-yourself, USD) ===== -->
@@ -719,46 +717,42 @@ function showPlan(which){
   document.getElementById('tab-plat').className='px-6 py-2.5 rounded-xl text-[13px] font-semibold flex items-center gap-2 transition-all '+(film?'text-on-muted hover:text-on-surface':'bg-gold text-[#0b0814]');
   if(!film) renderPlat();
 }
-// ── Film subscription packages (film.mystage.ai, EUR) — commitment-term re-pricing ──
-// Discount reduces what you PAY; the gift/bonus VALUE stays fixed. Matches the live
-// film.mystage.ai SubscriptionPlans component + commitment coupons (−10% / −15% / −20%).
+// Per-(plan, term) whole-euro prices — no coupons, no percentages. The bonus lands on
+// EVERY term (Monthly included): you pay `mo[term]`, your wallet receives `value` each month.
+// Mirrors film.mystage.ai (2026-06-24 refresh). value = base + gift.
 const FILM_SUBS = [
-  {name:'Starter', mo:130, videos:4,  bonus:10,  value:140,  pop:false},
-  {name:'Basic',   mo:255, videos:8,  bonus:25,  value:280,  pop:true},
-  {name:'Pro',     mo:470, videos:15, bonus:60,  value:530,  pop:false},
-  {name:'Max',     mo:880, videos:30, bonus:150, value:1030, pop:false},
+  {name:'Starter', videos:4,  value:140, bonus:10, pop:false, mo:{1:130, 3:117, 6:110, 12:104}},
+  {name:'Basic',   videos:8,  value:280, bonus:25, pop:true,  mo:{1:255, 3:230, 6:215, 12:204}},
+  {name:'Pro',     videos:15, value:530, bonus:60, pop:false, mo:{1:470, 3:423, 6:400, 12:376}},
 ];
-const FILM_RATES = {1:0, 3:0.10, 6:0.15, 12:0.20};
-let filmTerm = 1;
-const eurc = c => { const v = c/100; return Number.isInteger(v) ? '\u20ac'+v : '\u20ac'+v.toFixed(2); };
+let filmTerm = 3;
 function renderFilmSubs(){
   const wrap=document.getElementById('film-subs-cards'); if(!wrap) return; wrap.innerHTML='';
-  const rate=FILM_RATES[filmTerm], disc=filmTerm!==1, pct=Math.round(rate*100);
+  const commit=filmTerm!==1;
   FILM_SUBS.forEach(p=>{
-    const baseC=p.mo*100;
-    const moC=Math.round(baseC*(1-rate));
-    const valC=p.value*100, bonusC=p.bonus*100;
-    const perVid=Math.round(moC/p.videos);
-    const earn=(valC-moC)*filmTerm;
+    const mo=p.mo[filmTerm];
+    const payTotal=Math.round(mo*filmTerm);
+    const valueTotal=Math.round(p.value*filmTerm);
+    const earn=valueTotal-payTotal;
+    const perVid=(Math.floor((mo/p.videos)*10)/10).toFixed(1);
     const popCls = p.pop ? 'border-gold/50 shadow-[0_0_0_1px_rgba(157,107,255,0.5),0_0_36px_rgba(157,107,255,0.16)]' : 'border-cosmic';
     const el=document.createElement('div');
-    el.className=`bg-gradient-to-b from-bg-deep to-bg-mid border ${popCls} rounded-lg p-6 flex flex-col relative`;
+    el.className=`bg-gradient-to-b from-bg-deep to-bg-mid border ${popCls} rounded-xl p-7 flex flex-col relative`;
     el.innerHTML = `
-      ${p.pop?'<span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gold text-[#0b0814] px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.15em] whitespace-nowrap">Most Popular</span>':''}
-      <h3 class="font-display font-bold text-[18px] ${p.pop?'bg-gradient-to-br from-gold-light via-gold to-[#e84cc4] bg-clip-text text-transparent':''}">${p.name}</h3>
-      <div class="mt-2 mb-1 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-        <span class="font-display font-bold text-[34px]">${eurc(moC)}</span><span class="text-on-muted text-[13px]">/month</span>
-        ${disc?`<span class="text-on-muted line-through text-[13px]">${eurc(baseC)}</span><span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-violet/15 text-violet-soft whitespace-nowrap">&minus;${pct}%</span>`:''}
+      ${p.pop?'<span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gold text-[#0b0814] px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.15em] whitespace-nowrap">Popular plan</span>':''}
+      <h3 class="font-display font-bold text-[20px] ${p.pop?'bg-gradient-to-br from-gold-light via-gold to-[#e84cc4] bg-clip-text text-transparent':''}">${p.name}</h3>
+      <div class="mt-3 flex items-baseline gap-1.5">
+        <span class="font-display font-bold text-[38px]">€${mo}</span><span class="text-on-muted text-[14px]">/mo</span>
       </div>
-      <div class="text-gold-light text-[13px] font-semibold">+${eurc(bonusC)} bonus &rarr; ${eurc(valC)}/mo value</div>
-      ${disc?`<div class="text-violet-soft text-[12px] mt-1">&minus;${pct}% off &mdash; you still get the full ${eurc(valC)}/mo value</div>`:''}
-      <div class="text-[13px] font-semibold mt-2 mb-4 bg-gradient-to-r from-gold-light to-gold bg-clip-text text-transparent">${disc?`You earn ${eurc(earn)} over ${filmTerm} months`:`You earn ${eurc(bonusC)} every month`}</div>
-      <ul class="space-y-1.5 mb-6 flex-1 text-[13px] text-on-soft">
-        <li class="flex gap-2"><span class="material-symbols-outlined ms-fill text-gold-light text-[16px]">check_circle</span> Up to ${p.videos} videos/mo</li>
-        <li class="flex gap-2"><span class="material-symbols-outlined ms-fill text-gold-light text-[16px]">check_circle</span> &asymp; ${eurc(perVid)}/video</li>
-        <li class="flex gap-2"><span class="material-symbols-outlined ms-fill text-gold-light text-[16px]">check_circle</span> Rolling balance, never expires</li>
+      <div class="text-on-muted text-[12px] mb-3">${commit?`€${payTotal} billed over ${filmTerm} months`:'Billed monthly'}</div>
+      <div class="text-[15px] font-bold mb-1 bg-gradient-to-r from-gold-light to-gold bg-clip-text text-transparent">You earn +€${earn} &rarr; €${valueTotal} value</div>
+      <div class="text-on-muted text-[12px] mb-5">Bonus credit lands in your wallet every month.</div>
+      <ul class="space-y-2 mb-6 flex-1 text-[14px] text-on-soft">
+        <li class="flex gap-2"><span class="material-symbols-outlined ms-fill text-gold-light text-[18px]">check_circle</span> Up to ${p.videos} videos (15s) / mo</li>
+        <li class="flex gap-2"><span class="material-symbols-outlined ms-fill text-gold-light text-[18px]">check_circle</span> = €${perVid} / video</li>
+        <li class="flex gap-2"><span class="material-symbols-outlined ms-fill text-gold-light text-[18px]">check_circle</span> Rolling balance, never expires</li>
       </ul>
-      <a href="https://film.mystage.ai/pricing" target="_blank" rel="noopener" class="w-full text-center py-2.5 rounded ${p.pop?'bg-gold text-[#0b0814] font-bold hover:bg-[#b69bff]':'border border-violet/35 text-on-surface font-semibold hover:border-violet hover:text-violet-soft'} transition-all">Get started</a>`;
+      <a href="https://film.mystage.ai/pricing" target="_blank" rel="noopener" class="w-full text-center py-3 rounded-lg ${p.pop?'bg-gold text-[#0b0814] font-bold hover:bg-[#b69bff]':'border border-violet/35 text-on-surface font-semibold hover:border-violet hover:text-violet-soft'} transition-all">${commit?`Start ${filmTerm} months`:'Subscribe monthly'}</a>`;
     wrap.appendChild(el);
   });
 }
@@ -766,13 +760,13 @@ function setFilmTerm(t){
   filmTerm=t;
   [1,3,6,12].forEach(x=>{
     const b=document.getElementById('film-term-'+x); if(!b) return;
-    b.className='px-4 py-2 rounded-full font-medium transition-all whitespace-nowrap '+(x===t?'bg-gold text-[#0b0814]':'text-on-muted');
+    const base = x===1 ? 'px-5 py-2.5 rounded-xl font-semibold transition-all ' : 'relative px-5 py-2.5 rounded-xl font-bold transition-all whitespace-nowrap ';
+    b.className=base+(x===t?'bg-gold text-[#0b0814]':'text-on-muted hover:text-on-surface');
   });
-  const note=document.getElementById('film-term-note'); if(note) note.style.display = t===1?'none':'block';
   renderFilmSubs();
 }
 renderPlat();
-setFilmTerm(1);
+setFilmTerm(3);
 </script>
 
 <!-- ============================================================
