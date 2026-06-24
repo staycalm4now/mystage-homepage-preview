@@ -145,19 +145,23 @@
   /* Currency toggle visibility — JS toggles .hidden-cur */
   [data-currency-block].hidden-cur { display: none !important; }
 
-  /* -- Animated hero gradient background -- */
-  @keyframes auroraDrift { 0%{transform:translate3d(-5%,-3%,0) scale(1.1)} 50%{transform:translate3d(6%,4%,0) scale(1.25)} 100%{transform:translate3d(-5%,-3%,0) scale(1.1)} }
-  @keyframes spinSlow { to { transform: rotate(360deg); } }
-  .hero-aurora { position:absolute; inset:-25%; z-index:0; pointer-events:none; filter:blur(40px);
+  /* -- Animated hero gradient: bands flow LEFT -> RIGHT -- */
+  @keyframes flowX { from { background-position: 0% 50%; } to { background-position: 200% 50%; } }
+  @keyframes auroraX { 0%{transform:translateX(-7%)} 50%{transform:translateX(7%)} 100%{transform:translateX(-7%)} }
+  .hero-aurora { position:absolute; inset:-25%; z-index:0; pointer-events:none; filter:blur(46px);
     background:
-      radial-gradient(38% 48% at 22% 32%, rgba(157,107,255,.50), transparent 60%),
-      radial-gradient(38% 46% at 78% 26%, rgba(232,76,196,.40), transparent 60%),
-      radial-gradient(46% 56% at 55% 88%, rgba(124,58,237,.45), transparent 62%);
-    animation: auroraDrift 16s ease-in-out infinite; }
-  .hero-spin { position:absolute; inset:-45%; z-index:0; pointer-events:none; opacity:.16;
-    background: conic-gradient(from 0deg, transparent 0%, rgba(157,107,255,.55) 12%, transparent 30%, rgba(232,76,196,.5) 55%, transparent 72%, rgba(124,58,237,.5) 90%, transparent 100%);
-    animation: spinSlow 34s linear infinite; }
-  @media (prefers-reduced-motion: reduce){ .hero-aurora,.hero-spin{animation:none} }
+      radial-gradient(40% 50% at 25% 35%, rgba(157,107,255,.50), transparent 60%),
+      radial-gradient(38% 46% at 75% 28%, rgba(232,76,196,.38), transparent 60%),
+      radial-gradient(46% 56% at 55% 85%, rgba(124,58,237,.42), transparent 62%);
+    animation: auroraX 20s ease-in-out infinite; }
+  .hero-flow { position:absolute; inset:0; z-index:0; pointer-events:none; opacity:.5; filter:blur(34px);
+    background: repeating-linear-gradient(105deg,
+      transparent 0px, rgba(157,107,255,.30) 90px, transparent 230px,
+      rgba(232,76,196,.24) 330px, transparent 470px,
+      rgba(124,58,237,.28) 560px, transparent 720px);
+    background-size: 200% 100%;
+    animation: flowX 13s linear infinite; }
+  @media (prefers-reduced-motion: reduce){ .hero-aurora,.hero-flow{animation:none} }
   /* ── Live autoplay sample reel (ported from the new homepage) ── */
   .tile { position: relative; overflow: hidden; cursor: pointer; background: #161122; border-radius: 12px; }
   .tile video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.1s cubic-bezier(.22,1,.36,1); }
@@ -187,7 +191,7 @@ SECTION 2: Hero — animated moving gradient background + live video bento
 ============================================================ -->
 <section class="relative overflow-hidden border-b border-cosmic/30">
   <!-- moving gradient background -->
-  <div class="hero-spin" aria-hidden="true"></div>
+  <div class="hero-flow" aria-hidden="true"></div>
   <div class="hero-aurora" aria-hidden="true"></div>
   <div class="relative z-10 py-[clamp(52px,7.5vw,108px)] max-w-[1280px] mx-auto px-[clamp(20px,5vw,80px)]">
     <div class="grid md:grid-cols-2 gap-[clamp(32px,5vw,64px)] items-center">
@@ -245,6 +249,18 @@ Random set each load, drawn ONLY from film.mystage.ai's wired library. Sits righ
   </div>
   <div id="vfilters" class="flex flex-wrap gap-2 mb-6"></div>
   <div id="vgallery" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-[clamp(12px,1.6vw,18px)]"></div>
+  <!-- Don't see your industry? (moved here from the removed industries grid) -->
+  <div class="mt-10 bg-gradient-to-br from-gold/[0.06] to-violet/[0.06] border border-cosmic rounded-lg backdrop-blur-md p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="text-center md:text-left">
+      <h3 class="font-display font-bold mb-1 text-[clamp(20px,1.9vw,24px)]">Don't see your industry?</h3>
+      <p class="text-on-muted">We work across 13+ industries. Browse them all &mdash; and if yours isn&rsquo;t there, just ask.</p>
+    </div>
+    <div class="flex flex-col sm:flex-row gap-3 shrink-0">
+      <a href="https://film.mystage.ai" target="_blank" rel="noopener" class="whitespace-nowrap inline-flex items-center justify-center gap-2 bg-gold text-[#0b0814] font-bold px-[26px] py-[13px] rounded shadow-[0_0_18px_rgba(157,107,255,0.28)] hover:bg-[#b69bff] transition-all">View all industries <span class="material-symbols-outlined">arrow_forward</span></a>
+      <a href="https://tally.so/r/2ED07j?source_page=homepage&amp;utm_campaign=talk_to_us" target="_blank" rel="noopener" class="whitespace-nowrap inline-flex items-center justify-center gap-2 bg-transparent text-on-surface border border-violet/35 font-semibold px-[26px] py-[13px] rounded hover:border-violet hover:text-violet-soft hover:bg-violet/5 transition-all">Contact us</a>
+    </div>
+  </div>
+
   <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
     <a href="https://tally.so/r/xXREQJ?source_page=homepage" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-gold text-on-gold font-bold px-6 py-3 rounded shadow-[0_0_18px_rgba(157,107,255,0.28)] hover:bg-[#b69bff] hover:-translate-y-px transition-all">Get a video like these <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
     <button onclick="vReshuffle()" type="button" class="inline-flex items-center gap-2 border border-violet/35 text-on-surface px-5 py-3 rounded hover:border-violet hover:text-violet-soft hover:bg-violet/5 transition-all"><span class="material-symbols-outlined text-[18px]">shuffle</span> Show me more styles</button>
@@ -511,116 +527,6 @@ SECTION 4: Old way vs MyStage way — single comparison UI
         </li>
       </ul>
       <a href="https://tally.so/r/xXREQJ?source_page=homepage" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-gold text-[#0b0814] font-bold px-6 py-3 rounded shadow-[0_0_18px_rgba(157,107,255,0.32)] hover:bg-[#b69bff] hover:-translate-y-px transition-all">Start your video <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-SECTION 6: Industries grid
-============================================================ -->
-<section id="industries" class="py-[clamp(48px,7vw,96px)] max-w-[1280px] mx-auto px-[clamp(20px,5vw,80px)]">
-  <div class="text-center mb-[clamp(40px,5vw,64px)]">
-    <span class="inline-block text-[11px] uppercase tracking-[0.18em] text-gold-light mb-3">Industries we serve</span>
-    <h2 class="font-display font-bold text-[clamp(28px,3.6vw,44px)]">Built for enterprise ambition</h2>
-  </div>
-
-  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-5">
-    <!-- 12 industry cards — bigger photographic image-led tiles. Only Real Estate is wired. -->
-    <a href="https://film.mystage.ai/category/real-estate" target="_blank" rel="noopener" class="group bg-gradient-to-b from-bg-deep to-bg-mid border border-cosmic rounded-lg backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_28px_rgba(157,107,255,0.14)] hover:-translate-y-1 overflow-hidden flex flex-col">
-      <div class="relative w-full aspect-[4/3] overflow-hidden bg-bg-base">
-        <img src="images/industries-photo/01-real-estate.jpg" alt="Real Estate" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-        <div class="absolute inset-0 bg-gradient-to-t from-bg-base/75 via-bg-base/10 to-transparent pointer-events-none"></div>
-      </div>
-      <div class="px-4 py-3 text-center"><span class="text-[14px] font-medium">Real Estate</span></div>
-    </a>
-    <a href="https://film.mystage.ai/category/yachting" target="_blank" rel="noopener" class="group bg-gradient-to-b from-bg-deep to-bg-mid border border-cosmic rounded-lg backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_28px_rgba(157,107,255,0.14)] hover:-translate-y-1 overflow-hidden flex flex-col cursor-pointer block">
-      <div class="relative w-full aspect-[4/3] overflow-hidden bg-bg-base">
-        <img src="images/industries-photo/02-yachts.jpg" alt="Yachts" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-        <div class="absolute inset-0 bg-gradient-to-t from-bg-base/75 via-bg-base/10 to-transparent pointer-events-none"></div>
-      </div>
-      <div class="px-4 py-3 text-center"><span class="text-[14px] font-medium">Yachts</span></div>
-    </a>
-    <div class="group bg-gradient-to-b from-bg-deep to-bg-mid border border-cosmic rounded-lg backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_28px_rgba(157,107,255,0.14)] hover:-translate-y-1 overflow-hidden flex flex-col cursor-default">
-      <div class="relative w-full aspect-[4/3] overflow-hidden bg-bg-base">
-        <img src="images/industries-photo/03-healthcare.jpg" alt="Healthcare" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-        <div class="absolute inset-0 bg-gradient-to-t from-bg-base/75 via-bg-base/10 to-transparent pointer-events-none"></div>
-      </div>
-      <div class="px-4 py-3 text-center"><span class="text-[14px] font-medium">Healthcare</span></div>
-    </div>
-    <div class="group bg-gradient-to-b from-bg-deep to-bg-mid border border-cosmic rounded-lg backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_28px_rgba(157,107,255,0.14)] hover:-translate-y-1 overflow-hidden flex flex-col cursor-default">
-      <div class="relative w-full aspect-[4/3] overflow-hidden bg-bg-base">
-        <img src="images/industries-photo/04-automotive.jpg" alt="Automotive" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-        <div class="absolute inset-0 bg-gradient-to-t from-bg-base/75 via-bg-base/10 to-transparent pointer-events-none"></div>
-      </div>
-      <div class="px-4 py-3 text-center"><span class="text-[14px] font-medium">Automotive</span></div>
-    </div>
-    <a href="https://film.mystage.ai/category/hotels" target="_blank" rel="noopener" class="group bg-gradient-to-b from-bg-deep to-bg-mid border border-cosmic rounded-lg backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_28px_rgba(157,107,255,0.14)] hover:-translate-y-1 overflow-hidden flex flex-col cursor-pointer block">
-      <div class="relative w-full aspect-[4/3] overflow-hidden bg-bg-base">
-        <img src="images/industries-photo/05-hotels.jpg" alt="Hotels and Travel" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-        <div class="absolute inset-0 bg-gradient-to-t from-bg-base/75 via-bg-base/10 to-transparent pointer-events-none"></div>
-      </div>
-      <div class="px-4 py-3 text-center"><span class="text-[14px] font-medium">Hotels &amp; Travel</span></div>
-    </a>
-    <a href="https://film.mystage.ai/category/restaurants" target="_blank" rel="noopener" class="group bg-gradient-to-b from-bg-deep to-bg-mid border border-cosmic rounded-lg backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_28px_rgba(157,107,255,0.14)] hover:-translate-y-1 overflow-hidden flex flex-col cursor-pointer block">
-      <div class="relative w-full aspect-[4/3] overflow-hidden bg-bg-base">
-        <img src="images/industries-photo/06-restaurants.jpg" alt="Restaurants and Bars" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-        <div class="absolute inset-0 bg-gradient-to-t from-bg-base/75 via-bg-base/10 to-transparent pointer-events-none"></div>
-      </div>
-      <div class="px-4 py-3 text-center"><span class="text-[14px] font-medium">Restaurants &amp; Bars</span></div>
-    </a>
-    <a href="https://film.mystage.ai/category/e-commerce" target="_blank" rel="noopener" class="group bg-gradient-to-b from-bg-deep to-bg-mid border border-cosmic rounded-lg backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_28px_rgba(157,107,255,0.14)] hover:-translate-y-1 overflow-hidden flex flex-col cursor-pointer block">
-      <div class="relative w-full aspect-[4/3] overflow-hidden bg-bg-base">
-        <img src="images/industries-photo/07-ecommerce.jpg" alt="E-commerce" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-        <div class="absolute inset-0 bg-gradient-to-t from-bg-base/75 via-bg-base/10 to-transparent pointer-events-none"></div>
-      </div>
-      <div class="px-4 py-3 text-center"><span class="text-[14px] font-medium">E-commerce</span></div>
-    </a>
-    <a href="https://film.mystage.ai/category/fashion" target="_blank" rel="noopener" class="group bg-gradient-to-b from-bg-deep to-bg-mid border border-cosmic rounded-lg backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_28px_rgba(157,107,255,0.14)] hover:-translate-y-1 overflow-hidden flex flex-col cursor-pointer block">
-      <div class="relative w-full aspect-[4/3] overflow-hidden bg-bg-base">
-        <img src="images/industries-photo/08-fashion.jpg" alt="Fashion" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-        <div class="absolute inset-0 bg-gradient-to-t from-bg-base/75 via-bg-base/10 to-transparent pointer-events-none"></div>
-      </div>
-      <div class="px-4 py-3 text-center"><span class="text-[14px] font-medium">Fashion</span></div>
-    </a>
-    <a href="https://film.mystage.ai/category/beauty" target="_blank" rel="noopener" class="group bg-gradient-to-b from-bg-deep to-bg-mid border border-cosmic rounded-lg backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_28px_rgba(157,107,255,0.14)] hover:-translate-y-1 overflow-hidden flex flex-col cursor-pointer block">
-      <div class="relative w-full aspect-[4/3] overflow-hidden bg-bg-base">
-        <img src="images/industries-photo/09-beauty.jpg" alt="Beauty" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-        <div class="absolute inset-0 bg-gradient-to-t from-bg-base/75 via-bg-base/10 to-transparent pointer-events-none"></div>
-      </div>
-      <div class="px-4 py-3 text-center"><span class="text-[14px] font-medium">Beauty</span></div>
-    </a>
-    <div class="group bg-gradient-to-b from-bg-deep to-bg-mid border border-cosmic rounded-lg backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_28px_rgba(157,107,255,0.14)] hover:-translate-y-1 overflow-hidden flex flex-col cursor-default">
-      <div class="relative w-full aspect-[4/3] overflow-hidden bg-bg-base">
-        <img src="images/industries-photo/10-fitness.jpg" alt="Fitness and Wellness" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-        <div class="absolute inset-0 bg-gradient-to-t from-bg-base/75 via-bg-base/10 to-transparent pointer-events-none"></div>
-      </div>
-      <div class="px-4 py-3 text-center"><span class="text-[14px] font-medium">Fitness &amp; Wellness</span></div>
-    </div>
-    <div class="group bg-gradient-to-b from-bg-deep to-bg-mid border border-cosmic rounded-lg backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_28px_rgba(157,107,255,0.14)] hover:-translate-y-1 overflow-hidden flex flex-col cursor-default">
-      <div class="relative w-full aspect-[4/3] overflow-hidden bg-bg-base">
-        <img src="images/industries-photo/11-education.jpg" alt="Education" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-        <div class="absolute inset-0 bg-gradient-to-t from-bg-base/75 via-bg-base/10 to-transparent pointer-events-none"></div>
-      </div>
-      <div class="px-4 py-3 text-center"><span class="text-[14px] font-medium">Education</span></div>
-    </div>
-    <div class="group bg-gradient-to-b from-bg-deep to-bg-mid border border-cosmic rounded-lg backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_28px_rgba(157,107,255,0.14)] hover:-translate-y-1 overflow-hidden flex flex-col cursor-default">
-      <div class="relative w-full aspect-[4/3] overflow-hidden bg-bg-base">
-        <img src="images/industries-photo/12-publishers.jpg" alt="Publishers and Authors" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-        <div class="absolute inset-0 bg-gradient-to-t from-bg-base/75 via-bg-base/10 to-transparent pointer-events-none"></div>
-      </div>
-      <div class="px-4 py-3 text-center"><span class="text-[14px] font-medium">Publishers &amp; Authors</span></div>
-    </div>
-
-    <!-- Full-width fallback banner -->
-    <div class="col-span-2 sm:col-span-3 md:col-span-4 bg-gradient-to-br from-gold/[0.06] to-violet/[0.06] border border-cosmic rounded-lg backdrop-blur-md p-6 md:p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="text-center md:text-left">
-        <h3 class="font-display font-bold mb-1 text-[clamp(20px,1.9vw,24px)]">Don't see your industry?</h3>
-        <p class="text-on-muted">We cover far more than the twelve above. Browse the full list &mdash; and if yours isn&rsquo;t there, just ask.</p>
-      </div>
-      <div class="flex flex-col sm:flex-row gap-3 shrink-0">
-        <a href="https://film.mystage.ai" target="_blank" rel="noopener" class="whitespace-nowrap inline-flex items-center justify-center gap-2 bg-gold text-[#0b0814] font-bold px-[26px] py-[13px] rounded shadow-[0_0_18px_rgba(157,107,255,0.28)] hover:bg-[#b69bff] transition-all">View all industries <span class="material-symbols-outlined">arrow_forward</span></a>
-        <a href="https://tally.so/r/2ED07j?source_page=homepage&amp;utm_campaign=talk_to_us" target="_blank" rel="noopener" class="whitespace-nowrap inline-flex items-center justify-center gap-2 bg-transparent text-on-surface border border-violet/35 font-semibold px-[26px] py-[13px] rounded hover:border-violet hover:text-violet-soft hover:bg-violet/5 transition-all">Contact us</a>
-      </div>
     </div>
   </div>
 </section>
