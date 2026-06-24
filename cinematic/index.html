@@ -160,21 +160,21 @@
   @media (prefers-reduced-motion: reduce){ .hero-aurora,.hero-spin{animation:none} }
   /* -- Sloped divider + jeep round-trip with traffic-light stop + bubble smoke -- */
   .hero-clip{ clip-path: polygon(0 0, 100% 0, 100% calc(100% - 4vw), 0 100%); }
-  @keyframes carDrive { 0%{left:-9%} 50%{left:56%} 64%{left:56%} 100%{left:115%} }
+  @keyframes carDrive { 0%{left:-9%} 50%{left:44%} 64%{left:44%} 100%{left:115%} }
   @keyframes carFlip { 0%,49.9%{transform:scaleX(1)} 50%,99.9%{transform:scaleX(-1)} 100%{transform:scaleX(1)} }
   @keyframes puff { 0%{transform:scale(.45);opacity:0} 18%{opacity:.75} 100%{transform:scale(2) translate(-14px,-9px);opacity:0} }
   @keyframes tlRed   { 0%,45%{opacity:.18} 46%,64%{opacity:1} 65%,100%{opacity:.18} }
   @keyframes tlGreen { 0%,45%{opacity:1} 46%,64%{opacity:.18} 65%,100%{opacity:1} }
   .hero-road{ position:absolute; left:0; bottom:0; width:100%; height:96px; z-index:5; pointer-events:none; transform-origin:0% 100%; transform:rotate(-2.29deg); }
   .hero-road .road-dash{ position:absolute; left:0; bottom:6px; width:100%; height:2px; opacity:.5; background:repeating-linear-gradient(90deg,rgba(196,181,253,.55) 0 14px,transparent 14px 32px); }
-  .traffic-light{ position:absolute; left:61%; bottom:4px; width:10px; height:23px; border-radius:3px; background:#140f1c; border:1px solid #2e2348; display:flex; flex-direction:column; align-items:center; justify-content:space-evenly; }
+  .traffic-light{ position:absolute; left:48%; bottom:4px; width:10px; height:23px; border-radius:3px; background:#140f1c; border:1px solid #2e2348; display:flex; flex-direction:column; align-items:center; justify-content:space-evenly; }
   .traffic-light span{ width:5.5px; height:5.5px; border-radius:50%; }
   .tl-red{ background:#ff5a5a; box-shadow:0 0 7px #ff5a5a; animation:tlRed 14s linear 1s 1 forwards; }
   .tl-green{ background:#39e08a; box-shadow:0 0 7px #39e08a; animation:tlGreen 14s linear 1s 1 forwards; }
-  .hero-car{ position:absolute; bottom:2px; left:-9%; width:112px; transform:translateX(-50%); animation:carDrive 14s linear 1s 1 forwards; will-change:left; }
+  .hero-car{ position:absolute; bottom:-1px; left:-9%; width:102px; transform:translateX(-50%); animation:carDrive 14s linear 1s 1 forwards; will-change:left; }
   .hero-car .flip{ transform-origin:center center; }
   .hero-car svg{ display:block; overflow:visible; }
-  .hero-car .smoke circle{ animation:puff 1.6s ease-out infinite; transform-origin:9px 135px; }
+  .hero-car .smoke circle{ animation:puff 1.6s ease-out infinite; transform-origin:11px 124px; }
   .hero-car .smoke circle:nth-child(2){ animation-delay:.5s; }
   .hero-car .smoke circle:nth-child(3){ animation-delay:1s; }
   @media (prefers-reduced-motion: reduce){ .hero-car{animation:none} .hero-car .smoke circle{animation:none} .tl-red,.tl-green{animation:none} }
@@ -252,44 +252,47 @@ SECTION 2: Hero — animated moving gradient background + live video bento
       <div id="hero-bento" class="grid grid-cols-2 gap-3"></div>
     </div>
   </div>
-  <!-- sloped road: dotted line, traffic light, Suzuki Jimny with WE SELL VIDEOS flag (drives once) -->
+  <!-- sloped road: dotted line, traffic light, Range Rover-style SUV with WE SELL VIDEOS flag (drives once) -->
   <div class="hero-road" aria-hidden="true">
     <div class="road-dash"></div>
     <div class="traffic-light"><span class="tl-red"></span><span class="tl-green"></span></div>
     <div class="hero-car">
       <div class="flip">
-        <svg viewBox="0 0 168 158" width="112" xmlns="http://www.w3.org/2000/svg">
-          <!-- flag: WE SELL / VIDEOS (bigger) -->
-          <line x1="84" y1="62" x2="84" y2="6" stroke="#ffffff" stroke-width="3"/>
-          <path d="M84 6 L164 6 L155 26 L164 46 L84 46 Z" fill="#9d6bff" stroke="#c4b5fd" stroke-width="1.4"/>
-          <text x="91" y="23" font-family="Sora,sans-serif" font-size="14" font-weight="800" fill="#ffffff" letter-spacing="-0.4">WE SELL</text>
-          <text x="91" y="40" font-family="Sora,sans-serif" font-size="14" font-weight="800" fill="#ffffff" letter-spacing="-0.4">VIDEOS</text>
-          <!-- Suzuki Jimny (boxy, side view, facing right) -->
-          <rect x="18" y="106" width="130" height="32" rx="3" fill="#ffffff" stroke="#e6e0f5" stroke-width="1.4"/>
-          <rect x="44" y="64" width="84" height="44" rx="3" fill="#ffffff" stroke="#e6e0f5" stroke-width="1.4"/>
-          <rect x="126" y="92" width="22" height="16" rx="2" fill="#ffffff" stroke="#e6e0f5" stroke-width="1.4"/>
-          <rect x="42" y="60" width="88" height="6" rx="2" fill="#ffffff"/>
-          <rect x="52" y="72" width="32" height="27" rx="2" fill="#9d6bff" opacity="0.5"/>
-          <rect x="90" y="72" width="32" height="27" rx="2" fill="#9d6bff" opacity="0.5"/>
-          <circle cx="143" cy="99" r="4" fill="#fff3b0" stroke="#e6e0f5" stroke-width="0.8"/>
-          <line x1="146" y1="104" x2="146" y2="116" stroke="#cdbef0" stroke-width="1"/>
-          <line x1="143" y1="104" x2="143" y2="116" stroke="#cdbef0" stroke-width="1"/>
-          <!-- rear-mounted spare tire (Jimny signature, back=left) -->
-          <circle cx="14" cy="118" r="11" fill="#0c0a14" stroke="#ffffff" stroke-width="3"/>
-          <circle cx="14" cy="118" r="2.4" fill="#ffffff"/>
-          <!-- square wheel arches -->
-          <path d="M34 138 L34 124 Q34 120 38 120 L62 120 Q66 120 66 124 L66 138" fill="none" stroke="#e6e0f5" stroke-width="1.4"/>
-          <path d="M104 138 L104 124 Q104 120 108 120 L132 120 Q136 120 136 124 L136 138" fill="none" stroke="#e6e0f5" stroke-width="1.4"/>
-          <!-- big wheels -->
-          <circle cx="50" cy="138" r="15" fill="#0c0a14" stroke="#ffffff" stroke-width="4"/>
-          <circle cx="50" cy="138" r="3.4" fill="#ffffff"/>
-          <circle cx="120" cy="138" r="15" fill="#0c0a14" stroke="#ffffff" stroke-width="4"/>
-          <circle cx="120" cy="138" r="3.4" fill="#ffffff"/>
+        <svg viewBox="0 0 184 148" width="102" xmlns="http://www.w3.org/2000/svg">
+          <!-- flag: WE SELL / VIDEOS -->
+          <line x1="90" y1="80" x2="90" y2="16" stroke="#ffffff" stroke-width="3"/>
+          <path d="M90 16 L172 16 L163 36 L172 56 L90 56 Z" fill="#9d6bff" stroke="#c4b5fd" stroke-width="1.4"/>
+          <text x="97" y="33" font-family="Sora,sans-serif" font-size="15" font-weight="800" fill="#ffffff" letter-spacing="-0.4">WE SELL</text>
+          <text x="97" y="50" font-family="Sora,sans-serif" font-size="15" font-weight="800" fill="#ffffff" letter-spacing="-0.4">VIDEOS</text>
+          <!-- Range Rover style luxury SUV (facing right) -->
+          <!-- floating violet roof -->
+          <path d="M56 90 Q58 80 74 80 L120 80 Q134 80 142 92 L56 92 Z" fill="#9d6bff"/>
+          <!-- dark glass band (floating-roof DLO) -->
+          <path d="M58 102 L60 92 Q61 88 68 88 L128 88 Q135 88 139 94 L144 102 Z" fill="#181024"/>
+          <!-- chrome beltline accent -->
+          <rect x="56" y="101" width="90" height="2.4" rx="1.2" fill="#c4b5fd"/>
+          <!-- white lower body -->
+          <path d="M16 122 Q16 106 34 104 L152 104 Q170 106 170 122 L170 126 Q170 130 164 130 L22 130 Q16 130 16 126 Z" fill="#ffffff" stroke="#e6e0f5" stroke-width="1.2"/>
+          <!-- violet lower cladding -->
+          <path d="M18 125 L168 125 L168 126 Q168 130 163 130 L23 130 Q18 130 18 126 Z" fill="#7c3aed"/>
+          <!-- slim headlight (front=right) -->
+          <rect x="160" y="109" width="10" height="4.5" rx="2.2" fill="#fff3b0"/>
+          <!-- slim taillight (rear=left, magenta) -->
+          <rect x="16" y="109" width="9" height="4.5" rx="2.2" fill="#e84cc4"/>
+          <!-- door handle -->
+          <rect x="96" y="112" width="13" height="2.6" rx="1.3" fill="#cdbef0"/>
+          <!-- wheels (luxury alloy, violet rim) -->
+          <circle cx="52" cy="130" r="14" fill="#0c0a14" stroke="#ffffff" stroke-width="3.5"/>
+          <circle cx="52" cy="130" r="6.5" fill="none" stroke="#9d6bff" stroke-width="2.5"/>
+          <circle cx="52" cy="130" r="2.3" fill="#ffffff"/>
+          <circle cx="140" cy="130" r="14" fill="#0c0a14" stroke="#ffffff" stroke-width="3.5"/>
+          <circle cx="140" cy="130" r="6.5" fill="none" stroke="#9d6bff" stroke-width="2.5"/>
+          <circle cx="140" cy="130" r="2.3" fill="#ffffff"/>
           <!-- exhaust bubble smoke (rear=left) -->
           <g class="smoke">
-            <circle cx="9" cy="135" r="3.8" fill="#ffffff"/>
-            <circle cx="9" cy="135" r="3" fill="#ffffff"/>
-            <circle cx="9" cy="135" r="4.2" fill="#ffffff"/>
+            <circle cx="11" cy="124" r="3.6" fill="#ffffff"/>
+            <circle cx="11" cy="124" r="2.8" fill="#ffffff"/>
+            <circle cx="11" cy="124" r="4" fill="#ffffff"/>
           </g>
         </svg>
       </div>
