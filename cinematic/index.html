@@ -153,11 +153,24 @@
       radial-gradient(38% 48% at 22% 32%, rgba(157,107,255,.50), transparent 60%),
       radial-gradient(38% 46% at 78% 26%, rgba(232,76,196,.40), transparent 60%),
       radial-gradient(46% 56% at 55% 88%, rgba(124,58,237,.45), transparent 62%);
-    animation: auroraDrift 16s ease-in-out infinite; }
+    animation: auroraDrift 26s ease-in-out infinite; }
   .hero-spin { position:absolute; inset:-45%; z-index:0; pointer-events:none; opacity:.16;
     background: conic-gradient(from 0deg, transparent 0%, rgba(157,107,255,.55) 12%, transparent 30%, rgba(232,76,196,.5) 55%, transparent 72%, rgba(124,58,237,.5) 90%, transparent 100%);
-    animation: spinSlow 34s linear infinite; }
+    animation: spinSlow 70s linear infinite; }
   @media (prefers-reduced-motion: reduce){ .hero-aurora,.hero-spin{animation:none} }
+  /* -- Sloped section divider + tiny car climbing it (4% grade) -- */
+  .hero-clip{ clip-path: polygon(0 0, 100% 0, 100% calc(100% - 4vw), 0 100%); }
+  @keyframes carDrive { 0%{left:-9%;opacity:0} 7%{opacity:1} 92%{opacity:1} 100%{left:108%;opacity:0} }
+  @keyframes puff { 0%{transform:scale(.45);opacity:0} 18%{opacity:.75} 100%{transform:scale(1.9) translate(-12px,-7px);opacity:0} }
+  .hero-road{ position:absolute; left:0; bottom:0; width:100%; height:64px; z-index:5; pointer-events:none; transform-origin:0% 100%; transform:rotate(-2.29deg); }
+  .hero-road .road-line{ position:absolute; left:0; bottom:0; width:100%; height:2px; background:linear-gradient(90deg,transparent,rgba(196,181,253,.45) 10%,rgba(196,181,253,.75) 50%,rgba(196,181,253,.45) 90%,transparent); box-shadow:0 0 14px rgba(157,107,255,.55); }
+  .hero-road .road-dash{ position:absolute; left:0; bottom:5px; width:100%; height:2px; opacity:.45; background:repeating-linear-gradient(90deg,rgba(196,181,253,.55) 0 14px,transparent 14px 32px); }
+  .hero-car{ position:absolute; bottom:1px; left:-9%; width:66px; transform:translateX(-50%); animation:carDrive 18s linear infinite; will-change:left; }
+  .hero-car svg{ display:block; overflow:visible; }
+  .hero-car .smoke circle{ animation:puff 1.5s ease-out infinite; transform-origin:14px 95px; }
+  .hero-car .smoke circle:nth-child(2){ animation-delay:.5s; }
+  .hero-car .smoke circle:nth-child(3){ animation-delay:1s; }
+  @media (prefers-reduced-motion: reduce){ .hero-car{animation:none} .hero-car .smoke circle{animation:none} }
   /* ── Live autoplay sample reel (ported from the new homepage) ── */
   .tile { position: relative; overflow: hidden; cursor: pointer; background: #161122; border-radius: 12px; }
   .tile video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.1s cubic-bezier(.22,1,.36,1); }
@@ -185,7 +198,7 @@
 <!-- ============================================================
 SECTION 2: Hero — animated moving gradient background + live video bento
 ============================================================ -->
-<section class="relative overflow-hidden border-b border-cosmic/30">
+<section class="relative overflow-hidden hero-clip">
   <!-- moving gradient background -->
   <div class="hero-spin" aria-hidden="true"></div>
   <div class="hero-aurora" aria-hidden="true"></div>
@@ -229,6 +242,37 @@ SECTION 2: Hero — animated moving gradient background + live video bento
 
       <!-- live video bento — rendered by gallery script (real <video>, object-cover fills the frame) -->
       <div id="hero-bento" class="grid grid-cols-2 gap-3"></div>
+    </div>
+  </div>
+  <!-- sloped "road" divider with a tiny white car climbing it -->
+  <div class="hero-road" aria-hidden="true">
+    <div class="road-line"></div>
+    <div class="road-dash"></div>
+    <div class="hero-car">
+      <svg viewBox="0 0 132 112" width="66" xmlns="http://www.w3.org/2000/svg">
+        <!-- flag: WE SELL VIDEOS -->
+        <line x1="65" y1="73" x2="65" y2="33" stroke="#ffffff" stroke-width="2"/>
+        <path d="M65 33 L126 33 L120 43 L126 53 L65 53 Z" fill="#9d6bff" stroke="#c4b5fd" stroke-width="1"/>
+        <text x="69" y="46.5" font-family="Sora, sans-serif" font-size="8.4" font-weight="700" fill="#ffffff" letter-spacing="-0.4">WE SELL VIDEOS</text>
+        <!-- body -->
+        <path d="M16 96 Q16 86 28 85 L43 85 Q49 72 64 72 L79 72 Q91 73 96 85 L109 87 Q116 88 116 96 L116 100 Q116 102 113 102 L19 102 Q16 102 16 100 Z" fill="#ffffff" stroke="#e6e0f5" stroke-width="1"/>
+        <!-- windows -->
+        <path d="M47 85 Q51 76 63 76 L63 85 Z" fill="#9d6bff" opacity="0.5"/>
+        <path d="M67 76 Q85 76 89 85 L67 85 Z" fill="#9d6bff" opacity="0.5"/>
+        <!-- headlight (front = right) -->
+        <circle cx="112" cy="92" r="2.1" fill="#fff3b0"/>
+        <!-- wheels -->
+        <circle cx="42" cy="101" r="9" fill="#0c0a14" stroke="#ffffff" stroke-width="3"/>
+        <circle cx="42" cy="101" r="2.3" fill="#ffffff"/>
+        <circle cx="93" cy="101" r="9" fill="#0c0a14" stroke="#ffffff" stroke-width="3"/>
+        <circle cx="93" cy="101" r="2.3" fill="#ffffff"/>
+        <!-- exhaust bubble smoke (rear = left) -->
+        <g class="smoke">
+          <circle cx="14" cy="95" r="3" fill="#ffffff"/>
+          <circle cx="14" cy="95" r="2.4" fill="#ffffff"/>
+          <circle cx="14" cy="95" r="3.3" fill="#ffffff"/>
+        </g>
+      </svg>
     </div>
   </div>
 </section>
