@@ -145,23 +145,19 @@
   /* Currency toggle visibility — JS toggles .hidden-cur */
   [data-currency-block].hidden-cur { display: none !important; }
 
-  /* -- Animated hero gradient: bands flow LEFT -> RIGHT -- */
-  @keyframes flowX { from { background-position: 0% 50%; } to { background-position: 200% 50%; } }
-  @keyframes auroraX { 0%{transform:translateX(-7%)} 50%{transform:translateX(7%)} 100%{transform:translateX(-7%)} }
-  .hero-aurora { position:absolute; inset:-25%; z-index:0; pointer-events:none; filter:blur(46px);
+  /* -- Animated hero gradient background -- */
+  @keyframes auroraDrift { 0%{transform:translate3d(-5%,-3%,0) scale(1.1)} 50%{transform:translate3d(6%,4%,0) scale(1.25)} 100%{transform:translate3d(-5%,-3%,0) scale(1.1)} }
+  @keyframes spinSlow { to { transform: rotate(360deg); } }
+  .hero-aurora { position:absolute; inset:-25%; z-index:0; pointer-events:none; filter:blur(40px);
     background:
-      radial-gradient(40% 50% at 25% 35%, rgba(157,107,255,.50), transparent 60%),
-      radial-gradient(38% 46% at 75% 28%, rgba(232,76,196,.38), transparent 60%),
-      radial-gradient(46% 56% at 55% 85%, rgba(124,58,237,.42), transparent 62%);
-    animation: auroraX 20s ease-in-out infinite; }
-  .hero-flow { position:absolute; inset:0; z-index:0; pointer-events:none; opacity:.5; filter:blur(34px);
-    background: repeating-linear-gradient(105deg,
-      transparent 0px, rgba(157,107,255,.30) 90px, transparent 230px,
-      rgba(232,76,196,.24) 330px, transparent 470px,
-      rgba(124,58,237,.28) 560px, transparent 720px);
-    background-size: 200% 100%;
-    animation: flowX 13s linear infinite; }
-  @media (prefers-reduced-motion: reduce){ .hero-aurora,.hero-flow{animation:none} }
+      radial-gradient(38% 48% at 22% 32%, rgba(157,107,255,.50), transparent 60%),
+      radial-gradient(38% 46% at 78% 26%, rgba(232,76,196,.40), transparent 60%),
+      radial-gradient(46% 56% at 55% 88%, rgba(124,58,237,.45), transparent 62%);
+    animation: auroraDrift 16s ease-in-out infinite; }
+  .hero-spin { position:absolute; inset:-45%; z-index:0; pointer-events:none; opacity:.16;
+    background: conic-gradient(from 0deg, transparent 0%, rgba(157,107,255,.55) 12%, transparent 30%, rgba(232,76,196,.5) 55%, transparent 72%, rgba(124,58,237,.5) 90%, transparent 100%);
+    animation: spinSlow 34s linear infinite; }
+  @media (prefers-reduced-motion: reduce){ .hero-aurora,.hero-spin{animation:none} }
   /* ── Live autoplay sample reel (ported from the new homepage) ── */
   .tile { position: relative; overflow: hidden; cursor: pointer; background: #161122; border-radius: 12px; }
   .tile video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.1s cubic-bezier(.22,1,.36,1); }
@@ -191,7 +187,7 @@ SECTION 2: Hero — animated moving gradient background + live video bento
 ============================================================ -->
 <section class="relative overflow-hidden border-b border-cosmic/30">
   <!-- moving gradient background -->
-  <div class="hero-flow" aria-hidden="true"></div>
+  <div class="hero-spin" aria-hidden="true"></div>
   <div class="hero-aurora" aria-hidden="true"></div>
   <div class="relative z-10 py-[clamp(52px,7.5vw,108px)] max-w-[1280px] mx-auto px-[clamp(20px,5vw,80px)]">
     <div class="grid md:grid-cols-2 gap-[clamp(32px,5vw,64px)] items-center">
