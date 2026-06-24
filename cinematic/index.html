@@ -125,7 +125,7 @@
   .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
   /* Scroll reveal — JS toggles .visible */
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 700ms ease, transform 700ms ease; }
+  .reveal { opacity: 1; transform: none; transition: opacity 700ms ease, transform 700ms ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
   /* FAQ — strip default disclosure marker + animate chevron */
@@ -438,38 +438,43 @@ vRenderFilters(); vRenderGallery();
 -->
 
 <!-- ============================================================
-SECTION 4: Problem
+SECTION 4: The old way → The MyStage way (combined into one section)
 ============================================================ -->
-<section class="py-[clamp(48px,7vw,96px)] max-w-[1280px] mx-auto px-[clamp(20px,5vw,80px)] reveal">
-  <div class="text-center mb-[clamp(40px,5vw,64px)] max-w-2xl mx-auto">
-    <span class="inline-block text-[11px] uppercase tracking-[0.18em] text-violet-soft mb-3">The old way</span>
-    <h2 class="font-display font-bold text-[clamp(28px,3.6vw,44px)]">Video is expensive, slow, and complex&hellip;</h2>
-  </div>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-[clamp(16px,2.4vw,24px)]">
-    <div class="bg-gradient-to-b from-bg-deep to-bg-mid border border-cosmic rounded-lg backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_24px_rgba(157,107,255,0.10)] hover:-translate-y-1 p-6 sm:p-8 space-y-3">
-      <span class="material-symbols-outlined text-gold-light text-[44px]">payments</span>
-      <h3 class="font-display font-bold text-[clamp(20px,1.9vw,24px)]">Costly production</h3>
-      <p class="text-on-muted">Traditional agencies charge thousands for a single brand video. High-volume content becomes impossible.</p>
-    </div>
-    <div class="bg-gradient-to-b from-bg-deep to-bg-mid border border-cosmic rounded-lg backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_24px_rgba(157,107,255,0.10)] hover:-translate-y-1 p-6 sm:p-8 space-y-3">
-      <span class="material-symbols-outlined text-gold-light text-[44px]">schedule</span>
-      <h3 class="font-display font-bold text-[clamp(20px,1.9vw,24px)]">Weeks of waiting</h3>
-      <p class="text-on-muted">Shooting, editing, revisions. Your market moves faster than any camera crew can deliver.</p>
-    </div>
-    <div class="bg-gradient-to-b from-bg-deep to-bg-mid border border-cosmic rounded-lg backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_24px_rgba(157,107,255,0.10)] hover:-translate-y-1 p-6 sm:p-8 space-y-3">
-      <span class="material-symbols-outlined text-gold-light text-[44px]">warning</span>
-      <h3 class="font-display font-bold text-[clamp(20px,1.9vw,24px)]">Inconsistent quality</h3>
-      <p class="text-on-muted">Fragmented workflows lead to off-brand visuals and broken messaging across your platforms.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-SECTION 5: Solution
-============================================================ -->
-<section class="py-[clamp(48px,7vw,96px)] bg-surface/50 border-y border-cosmic/20 reveal">
+<section class="py-[clamp(48px,7vw,96px)] bg-surface/40 border-y border-cosmic/20 reveal">
   <div class="max-w-[1280px] mx-auto px-[clamp(20px,5vw,80px)]">
-    <div class="text-center mb-[clamp(40px,5vw,64px)] max-w-2xl mx-auto">
+
+    <!-- The old way -->
+    <div class="text-center mb-[clamp(28px,4vw,44px)] max-w-2xl mx-auto">
+      <span class="inline-block text-[11px] uppercase tracking-[0.18em] text-violet-soft mb-3">The old way</span>
+      <h2 class="font-display font-bold text-[clamp(28px,3.6vw,44px)]">Video is expensive, slow, and complex&hellip;</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-[clamp(16px,2.4vw,24px)]">
+      <div class="bg-gradient-to-b from-bg-deep to-bg-mid border border-cosmic rounded-lg backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_24px_rgba(157,107,255,0.10)] hover:-translate-y-1 p-6 sm:p-8 space-y-3">
+        <span class="material-symbols-outlined text-violet-soft text-[44px]">payments</span>
+        <h3 class="font-display font-bold text-[clamp(20px,1.9vw,24px)]">Costly production</h3>
+        <p class="text-on-muted">Traditional agencies charge thousands for a single brand video. High-volume content becomes impossible.</p>
+      </div>
+      <div class="bg-gradient-to-b from-bg-deep to-bg-mid border border-cosmic rounded-lg backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_24px_rgba(157,107,255,0.10)] hover:-translate-y-1 p-6 sm:p-8 space-y-3">
+        <span class="material-symbols-outlined text-violet-soft text-[44px]">schedule</span>
+        <h3 class="font-display font-bold text-[clamp(20px,1.9vw,24px)]">Weeks of waiting</h3>
+        <p class="text-on-muted">Shooting, editing, revisions. Your market moves faster than any camera crew can deliver.</p>
+      </div>
+      <div class="bg-gradient-to-b from-bg-deep to-bg-mid border border-cosmic rounded-lg backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_24px_rgba(157,107,255,0.10)] hover:-translate-y-1 p-6 sm:p-8 space-y-3">
+        <span class="material-symbols-outlined text-violet-soft text-[44px]">warning</span>
+        <h3 class="font-display font-bold text-[clamp(20px,1.9vw,24px)]">Inconsistent quality</h3>
+        <p class="text-on-muted">Fragmented workflows lead to off-brand visuals and broken messaging across your platforms.</p>
+      </div>
+    </div>
+
+    <!-- divider: old way → MyStage way -->
+    <div class="flex items-center justify-center gap-4 my-[clamp(36px,5vw,56px)]">
+      <span class="h-px flex-1 max-w-[140px] bg-gradient-to-r from-transparent to-cosmic"></span>
+      <span class="material-symbols-outlined ms-fill text-violet-soft">south</span>
+      <span class="h-px flex-1 max-w-[140px] bg-gradient-to-l from-transparent to-cosmic"></span>
+    </div>
+
+    <!-- The MyStage way -->
+    <div class="text-center mb-[clamp(28px,4vw,44px)] max-w-2xl mx-auto">
       <span class="inline-block text-[11px] uppercase tracking-[0.18em] text-gold-light mb-3">The MyStage way</span>
       <h2 class="font-display font-bold text-[clamp(28px,3.6vw,44px)]">Cinematic AI videos in <span class="bg-gradient-to-br from-gold-light via-gold to-[#e84cc4] bg-clip-text text-transparent">minutes</span>.</h2>
     </div>
@@ -478,15 +483,16 @@ SECTION 5: Solution
         <h3 class="font-display font-bold mb-2 text-[clamp(20px,1.9vw,24px)]">Professional quality</h3>
         <p class="text-on-muted">Hollywood-grade cinematic intelligence that understands lighting, composition, and flow.</p>
       </div>
-      <div class="bg-gradient-to-b from-bg-deep to-bg-mid border border-cosmic border-l-4 border-l-violet rounded-lg backdrop-blur-md transition-all duration-300 hover:border-violet/40 hover:shadow-[0_0_24px_rgba(168,85,247,0.10)] hover:-translate-y-1 p-6 sm:p-8">
+      <div class="bg-gradient-to-b from-bg-deep to-bg-mid border border-cosmic border-l-4 border-l-violet rounded-lg backdrop-blur-md transition-all duration-300 hover:border-violet/40 hover:shadow-[0_0_24px_rgba(157,107,255,0.10)] hover:-translate-y-1 p-6 sm:p-8">
         <h3 class="font-display font-bold mb-2 text-[clamp(20px,1.9vw,24px)]">Brand-aligned</h3>
         <p class="text-on-muted">Models tuned to your specific brand guidelines for perfect visual consistency every time.</p>
       </div>
-      <div class="bg-gradient-to-b from-bg-deep to-bg-mid border border-cosmic border-l-4 border-l-pink rounded-lg backdrop-blur-md transition-all duration-300 hover:border-pink/40 hover:shadow-[0_0_24px_rgba(236,72,153,0.10)] hover:-translate-y-1 p-6 sm:p-8">
+      <div class="bg-gradient-to-b from-bg-deep to-bg-mid border border-cosmic border-l-4 border-l-pink rounded-lg backdrop-blur-md transition-all duration-300 hover:border-pink/40 hover:shadow-[0_0_24px_rgba(232,76,196,0.10)] hover:-translate-y-1 p-6 sm:p-8">
         <h3 class="font-display font-bold mb-2 text-[clamp(20px,1.9vw,24px)]">10x faster</h3>
         <p class="text-on-muted">Brief to broadcast-ready in less time than it takes to schedule a meeting.</p>
       </div>
     </div>
+
   </div>
 </section>
 
