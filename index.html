@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<title>MyStage.ai — Option B v2 · Purple · Live videos</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round">
+<script>
+tailwind.config = {
+  theme: { extend: {
+    fontFamily: { sans: ['Inter','sans-serif'] },
+    colors: {
+      ink:'#0c0a14', panel:'#161122', line:'#2a2138',
+      violet:'#9d6bff', plum:'#7c3aed', magenta:'#e84cc4', lav:'#c4b5fd'
+    }
+  }}
+}
+</script>
+<style>
+  body{background:#0c0a14;color:#ece9f4}
+  .grid-bg{background-image:radial-gradient(rgba(157,107,255,.07) 1px,transparent 1px);background-size:22px 22px}
+  .glass{background:rgba(22,17,34,.7);backdrop-filter:blur(16px);border:1px solid rgba(157,107,255,.12)}
+  .glow{box-shadow:0 0 0 1px rgba(157,107,255,.25),0 30px 80px -30px rgba(157,107,255,.5)}
+  .aurora{background:
+    radial-gradient(45% 60% at 12% 8%, rgba(157,107,255,.35), transparent 60%),
+    radial-gradient(45% 55% at 92% 18%, rgba(232,76,196,.25), transparent 60%),
+    radial-gradient(60% 60% at 60% 100%, rgba(124,58,237,.30), transparent 60%);}
+  .lift{transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .35s,box-shadow .35s}
+  .lift:hover{transform:translateY(-4px)}
+  .tile{position:relative;overflow:hidden;cursor:pointer;background:#161122}
+  .tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.22,1,.36,1)}
+  .tile:hover video{transform:scale(1.05)}
+  .tile:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 42%,rgba(8,6,16,.82));pointer-events:none}
+  .tile .meta{position:absolute;left:0;right:0;bottom:0;padding:14px;z-index:2}
+  .tile .pp{position:absolute;inset:0;display:grid;place-items:center;z-index:1;opacity:0;transition:opacity .3s}
+  .tile:hover .pp{opacity:1}
+  .badge{position:absolute;top:10px;left:10px;z-index:2;font-size:10px;letter-spacing:.12em;background:rgba(12,10,20,.6);backdrop-filter:blur(4px);padding:4px 8px;border-radius:6px}
+  .mi{font-family:'Material Icons Round';line-height:1;display:inline-block}
+  .chip-active{background:#9d6bff;color:#0c0a14;border-color:#9d6bff !important}
+  #lb{position:fixed;inset:0;z-index:9998;background:rgba(6,4,12,.86);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:24px}
+  #lb.on{display:flex}
+  #lb video{max-width:min(92vw,1100px);max-height:86vh;border-radius:16px;box-shadow:0 40px 120px -30px rgba(157,107,255,.6)}
+</style>
+</head>
+<body class="font-sans antialiased selection:bg-violet selection:text-black">
+
+<!-- file:// warning (hidden when served over http) -->
+<div id="proto-warn" style="display:none" class="bg-amber-500 text-black text-sm text-center py-2 px-4 font-medium">
+  ⚠ You opened this as a local file — Bunny blocks no-referer requests, so videos won't play. Serve it over http (a local server is already running): open <b>http://localhost:5173/option-b-v2-purple.html</b>
+</div>
+
+<!-- NOTE: site header/footer come from mystage.ai's own chrome — omitted here on purpose. -->
+
+<!-- HERO -->
+<section class="grid-bg border-b border-line relative overflow-hidden">
+  <div class="aurora absolute inset-0 opacity-70 pointer-events-none"></div>
+  <div class="relative mx-auto max-w-7xl px-6 pt-16 pb-14 grid lg:grid-cols-2 gap-12 items-center">
+    <div>
+      <span class="inline-flex items-center gap-2 text-xs font-semibold tracking-wide text-violet bg-violet/10 border border-violet/25 px-3 py-1 rounded-full"><span class="mi text-[16px]">bolt</span> CINEMATIC INTELLIGENCE FOR BRANDS</span>
+      <h1 class="mt-6 text-5xl md:text-6xl font-extrabold leading-[1.02] tracking-tight">
+        Branded videos<br>for your business,<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-violet via-lav to-magenta">made by AI.</span>
+      </h1>
+      <p class="mt-5 text-lg text-zinc-400 max-w-md">One brand, two ways to ship a cinematic, on-brand video.</p>
+
+      <div class="mt-8 space-y-3 max-w-md">
+        <a href="https://film.mystage.ai" class="lift group flex items-center gap-4 glass rounded-xl p-4 hover:border-violet/50">
+          <span class="grid place-items-center h-11 w-11 rounded-lg bg-magenta/15 text-magenta shrink-0"><span class="mi">auto_awesome</span></span>
+          <div class="min-w-0">
+            <div class="flex items-center gap-2"><h3 class="font-semibold">We create it for you</h3><span class="text-[10px] text-zinc-500">MyStage Film</span></div>
+            <p class="text-sm text-zinc-400 truncate">Send a brief — finished video in 48h · from €35</p>
+          </div>
+          <span class="mi text-zinc-500 group-hover:text-white transition ml-auto">arrow_forward</span>
+        </a>
+        <a href="#" class="lift group flex items-center gap-4 rounded-xl p-4 bg-violet/12 border border-violet/35 hover:border-violet/70">
+          <span class="grid place-items-center h-11 w-11 rounded-lg bg-violet text-black shrink-0"><span class="mi">draw</span></span>
+          <div class="min-w-0">
+            <div class="flex items-center gap-2"><h3 class="font-semibold">Create it yourself</h3><span class="text-[10px] text-violet/90">MyStage Platform</span></div>
+            <p class="text-sm text-zinc-400 truncate">Browser AI studio · sign in to start · from $9/mo</p>
+          </div>
+          <span class="mi text-violet group-hover:translate-x-0.5 transition ml-auto">arrow_forward</span>
+        </a>
+      </div>
+      <div class="mt-7 flex items-center gap-6 text-xs text-zinc-500"><span><b class="text-white">13+</b> industries</span><span><b class="text-white">48h</b> first draft</span><span><b class="text-white">€35</b> start price</span></div>
+    </div>
+
+    <div id="hero-bento" class="grid grid-cols-2 gap-3"></div>
+  </div>
+</section>
+
+<!-- AUTO VIDEO GALLERY -->
+<section id="work" class="py-20">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="flex items-end justify-between flex-wrap gap-4">
+      <div>
+        <p class="text-xs tracking-[0.25em] text-violet font-semibold">SAMPLE WORK · LIVE LIBRARY</p>
+        <h2 class="mt-2 text-4xl font-extrabold tracking-tight">See the results</h2>
+        <p class="mt-2 text-zinc-400">Real videos, playing live. A fresh random set loads each visit — straight from our library, growing automatically as we publish.</p>
+      </div>
+      <div id="filters" class="flex flex-wrap gap-2 text-sm"></div>
+    </div>
+    <div id="gallery" class="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4"></div>
+    <div class="mt-8 text-center"><button onclick="reshuffle()" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-line text-zinc-300 hover:text-white hover:border-violet/50 transition"><span class="mi text-[18px]">shuffle</span> Shuffle the reel</button></div>
+  </div>
+</section>
+
+<!-- TWO WAYS -->
+<section id="two-ways" class="py-20 border-t border-line bg-panel/40">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="text-center"><p class="text-xs tracking-[0.25em] text-violet font-semibold">TWO WAYS TO GET STARTED</p><h2 class="mt-2 text-4xl font-extrabold tracking-tight">Which path fits you?</h2></div>
+    <div class="mt-12 grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+      <div class="glass rounded-2xl p-8">
+        <div class="flex items-center gap-2 text-magenta text-xs font-semibold tracking-widest"><span class="mi text-[18px]">handshake</span> MYSTAGE FILM · DONE FOR YOU</div>
+        <h3 class="mt-3 text-2xl font-bold">We create your videos</h3>
+        <ul class="mt-5 space-y-2.5 text-sm text-zinc-300">
+          <li class="flex gap-2"><span class="mi text-magenta text-[18px]">check_circle</span> Production team handles everything</li>
+          <li class="flex gap-2"><span class="mi text-magenta text-[18px]">check_circle</span> 48-hour first draft</li>
+          <li class="flex gap-2"><span class="mi text-magenta text-[18px]">check_circle</span> 1 storyboard revision</li>
+          <li class="flex gap-2"><span class="mi text-magenta text-[18px]">check_circle</span> Full commercial rights, no subscription</li>
+        </ul>
+        <div class="mt-6 flex items-center justify-between"><span class="text-sm text-zinc-500">From <b class="text-white text-lg">€35</b>/video</span><a href="https://film.mystage.ai" class="px-5 py-2.5 rounded-lg bg-white text-black font-semibold hover:bg-zinc-200 transition">Request a video</a></div>
+      </div>
+      <div class="rounded-2xl p-8 bg-violet/12 border border-violet/30">
+        <div class="flex items-center gap-2 text-violet text-xs font-semibold tracking-widest"><span class="mi text-[18px]">draw</span> MYSTAGE PLATFORM · DO IT YOURSELF</div>
+        <h3 class="mt-3 text-2xl font-bold">Create videos yourself</h3>
+        <ul class="mt-5 space-y-2.5 text-sm text-zinc-300">
+          <li class="flex gap-2"><span class="mi text-violet text-[18px]">check_circle</span> Browser-based AI editor</li>
+          <li class="flex gap-2"><span class="mi text-violet text-[18px]">check_circle</span> Credits for images & videos</li>
+          <li class="flex gap-2"><span class="mi text-violet text-[18px]">check_circle</span> Cancel anytime</li>
+          <li class="flex gap-2"><span class="mi text-violet text-[18px]">check_circle</span> Full commercial rights</li>
+        </ul>
+        <div class="mt-6 flex items-center justify-between"><span class="text-sm text-zinc-400">From <b class="text-white text-lg">$9</b>/month</span><a href="#" class="px-5 py-2.5 rounded-lg bg-violet text-black font-semibold hover:bg-violet/80 transition">Open the Platform</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING with TABS -->
+<section id="pricing" class="py-20 border-t border-line">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="text-center">
+      <p class="text-xs tracking-[0.25em] text-violet font-semibold">PRICING</p>
+      <h2 class="mt-2 text-4xl font-extrabold tracking-tight">Pick how you want to create</h2>
+    </div>
+
+    <div class="mt-8 flex justify-center">
+      <div class="inline-flex p-1.5 rounded-2xl bg-panel border border-line">
+        <button id="tab-film" onclick="showPlan('film')" class="px-6 py-2.5 rounded-xl text-sm font-semibold transition flex items-center gap-2 bg-violet text-black"><span class="mi text-[18px]">handshake</span> MyStage Film</button>
+        <button id="tab-plat" onclick="showPlan('plat')" class="px-6 py-2.5 rounded-xl text-sm font-semibold transition flex items-center gap-2 text-zinc-400 hover:text-white"><span class="mi text-[18px]">draw</span> MyStage Platform</button>
+      </div>
+    </div>
+
+    <!-- FILM plans -->
+    <div id="plan-film">
+      <p class="mt-6 text-center text-sm text-zinc-400">We make it for you · one-time per video · full price list at <a href="https://film.mystage.ai/pricing" class="text-magenta hover:underline">film.mystage.ai</a></p>
+      <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+        <div class="glass rounded-2xl p-6 lift hover:border-violet/40"><h3 class="text-lg font-bold">Teaser</h3><p class="text-xs text-zinc-500">15s · punchy social clips</p><div class="mt-4 text-3xl font-extrabold">€35<span class="text-sm font-normal text-zinc-500">/video</span></div><ul class="mt-4 space-y-1.5 text-xs text-zinc-400"><li class="flex gap-1.5"><span class="mi text-violet text-[15px]">check_circle</span>1080p quality</li><li class="flex gap-1.5"><span class="mi text-violet text-[15px]">check_circle</span>Premium music</li><li class="flex gap-1.5"><span class="mi text-violet text-[15px]">check_circle</span>1 aspect ratio</li></ul><a href="https://film.mystage.ai" class="mt-5 block text-center py-2.5 rounded-lg border border-line hover:border-white transition text-sm">Select Teaser</a></div>
+        <div class="glass rounded-2xl p-6 lift hover:border-violet/40"><h3 class="text-lg font-bold">Spotlight</h3><p class="text-xs text-zinc-500">30s · social & ads</p><div class="mt-4 text-3xl font-extrabold">€72<span class="text-sm font-normal text-zinc-500">/video</span></div><ul class="mt-4 space-y-1.5 text-xs text-zinc-400"><li class="flex gap-1.5"><span class="mi text-violet text-[15px]">check_circle</span>1080p quality</li><li class="flex gap-1.5"><span class="mi text-violet text-[15px]">check_circle</span>Premium music</li><li class="flex gap-1.5"><span class="mi text-violet text-[15px]">check_circle</span>1 storyboard revision</li></ul><a href="https://film.mystage.ai" class="mt-5 block text-center py-2.5 rounded-lg border border-line hover:border-white transition text-sm">Select Spotlight</a></div>
+        <div class="rounded-2xl p-6 bg-gradient-to-b from-violet/18 to-transparent border border-violet/45 relative lift"><span class="absolute -top-3 left-6 text-[10px] tracking-widest bg-violet text-black px-2 py-1 rounded-full font-bold">MOST POPULAR</span><h3 class="text-lg font-bold">Headliner</h3><p class="text-xs text-zinc-400">45s · the brand story</p><div class="mt-4 text-3xl font-extrabold">€95<span class="text-sm font-normal text-zinc-400">/video</span></div><ul class="mt-4 space-y-1.5 text-xs text-zinc-300"><li class="flex gap-1.5"><span class="mi text-violet text-[15px]">check_circle</span>1080p quality</li><li class="flex gap-1.5"><span class="mi text-violet text-[15px]">check_circle</span>Premium music</li><li class="flex gap-1.5"><span class="mi text-violet text-[15px]">check_circle</span>1 storyboard revision</li></ul><a href="https://film.mystage.ai" class="mt-5 block text-center py-2.5 rounded-lg bg-violet text-black font-semibold hover:bg-violet/80 transition text-sm">Select Headliner</a></div>
+        <div class="glass rounded-2xl p-6 lift hover:border-violet/40"><h3 class="text-lg font-bold">Showstopper</h3><p class="text-xs text-zinc-500">60s · full polish</p><div class="mt-4 text-3xl font-extrabold">€118<span class="text-sm font-normal text-zinc-500">/video</span></div><ul class="mt-4 space-y-1.5 text-xs text-zinc-400"><li class="flex gap-1.5"><span class="mi text-violet text-[15px]">check_circle</span>1080p quality</li><li class="flex gap-1.5"><span class="mi text-violet text-[15px]">check_circle</span>Premium music</li><li class="flex gap-1.5"><span class="mi text-violet text-[15px]">check_circle</span>1 storyboard revision</li></ul><a href="https://film.mystage.ai" class="mt-5 block text-center py-2.5 rounded-lg border border-line hover:border-white transition text-sm">Select Showstopper</a></div>
+      </div>
+    </div>
+
+    <!-- PLATFORM plans (real, from mystage.ai/pricing) -->
+    <div id="plan-plat" style="display:none">
+      <p class="mt-6 text-center text-sm text-zinc-400">Do it yourself · credit-based subscription · cancel anytime</p>
+      <div class="mt-6 flex justify-center">
+        <div class="inline-flex items-center p-1 rounded-full bg-panel border border-line text-sm">
+          <button id="bill-mo" onclick="setBilling('monthly')" class="px-5 py-2 rounded-full font-medium text-zinc-400 transition">Monthly</button>
+          <button id="bill-yr" onclick="setBilling('yearly')" class="px-5 py-2 rounded-full font-medium bg-violet text-black transition">Yearly · save 55%</button>
+        </div>
+      </div>
+      <div id="plat-cards" class="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 max-w-7xl mx-auto"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="py-20 border-t border-line">
+  <div class="mx-auto max-w-5xl px-6">
+    <div class="glow rounded-3xl p-10 md:p-14 text-center bg-gradient-to-br from-violet/18 via-panel to-panel border border-violet/25 relative overflow-hidden">
+      <div class="aurora absolute inset-0 opacity-40 pointer-events-none"></div>
+      <div class="relative">
+        <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight">Ship your first video this week</h2>
+        <p class="mt-4 text-zinc-300">Have us make it, or make it yourself. No card required to explore.</p>
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <a href="https://film.mystage.ai" class="px-7 py-3 rounded-lg bg-white text-black font-semibold hover:bg-zinc-200 transition">Request a video</a>
+          <a href="#" class="px-7 py-3 rounded-lg bg-violet text-black font-semibold hover:bg-violet/80 transition">Sign up — try the Platform</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="lb" onclick="closeLb(event)"><video id="lb-video" controls loop playsinline></video></div>
+<div class="fixed bottom-3 right-3 z-[9999] text-[11px] font-mono bg-black/80 text-white px-3 py-1.5 rounded-lg border border-white/10">Option B v2 · Purple · Live videos</div>
+
+<script>
+// ── Real Bunny Stream library: the 79 videos wired into film.mystage.ai's homepage ──
+const HOST = 'https://vz-dce9d907-69b.b-cdn.net';
+const VIDEOS = [{"guid":"7cb590f9-e8c2-4f4d-a2ce-caf4e2d8c6d4","title":"Pizza chef cartoon","cat":"Restaurants","aspect":"landscape"},{"guid":"9ec7704a-3540-4d3e-87c3-039b0a21425d","title":"Pizzeria commercial cartoon","cat":"Restaurants","aspect":"portrait"},{"guid":"6b4729e1-04dc-4752-83e3-db29a1860633","title":"Souvlaki cartoon","cat":"Restaurants","aspect":"portrait"},{"guid":"78c45d93-b08a-4eab-b2ae-39eb3fb6db31","title":"UGC - Taste reaction souvlaki 3","cat":"Restaurants","aspect":"portrait"},{"guid":"1b260f5e-718f-4e7c-bfde-110531ab5e3e","title":"Delivery - Giraffe","cat":"Restaurants","aspect":"portrait"},{"guid":"df21c4ce-cd48-4bc6-8f88-12ce88662696","title":"TikTok viral piece, worth it","cat":"Fashion","aspect":"portrait"},{"guid":"d7bcbf1d-0a63-4a8b-997b-62782beaf23b","title":"Before/After - Robot Vacuum","cat":"E-commerce","aspect":"portrait"},{"guid":"2516c855-5f33-45bd-b841-01c27d535081","title":"Skincare commercial 1","cat":"Beauty","aspect":"portrait"},{"guid":"f4faac23-480c-42ef-ad0a-aa0e27fefa26","title":"UGC - Snacks","cat":"Food & Drinks","aspect":"portrait"},{"guid":"8039ec3f-244d-4980-80a5-833bac73f297","title":"Daily Routine 1","cat":"Fashion","aspect":"portrait"},{"guid":"d42c3155-d85d-4210-9ed3-a1ea89367bb5","title":"Daily Routine 2","cat":"Fashion","aspect":"portrait"},{"guid":"98a5945d-cbc4-4798-bbd9-3ddd4417de36","title":"Daily Routine 3","cat":"Fashion","aspect":"portrait"},{"guid":"084e36fd-69a9-479e-8c87-4e347cf6c236","title":"Mundial - Souvlaki 1","cat":"Restaurants","aspect":"portrait"},{"guid":"475b7b86-ac4b-416d-b107-84a9f85421ec","title":"Mundial - Souvlaki 2","cat":"Restaurants","aspect":"portrait"},{"guid":"41b2c29a-f8b2-4fb5-8659-e863dda4fa7a","title":"Avatar in property","cat":"Real Estate","aspect":"landscape"},{"guid":"1991f2a6-d590-4161-a376-cd1871e363f4","title":"Drone","cat":"Real Estate","aspect":"landscape"},{"guid":"577e3f22-830f-48ff-a5cc-2718401bfa3d","title":"Interior Unboxing (30sec)","cat":"Real Estate","aspect":"portrait"},{"guid":"740e81cb-9099-4dfa-8e57-45e69e28f281","title":"Lifestyle Trailer","cat":"Real Estate","aspect":"landscape"},{"guid":"c6537c2a-0869-46c9-86c5-fa120edaa4ab","title":"Renovation Timelapse","cat":"Real Estate","aspect":"landscape"},{"guid":"d1977edb-e13f-482f-97f2-2a28b8c7d890","title":"A day on board","cat":"Yachting","aspect":"landscape"},{"guid":"0e2fe3ec-2527-4043-8b1e-b47e80c63ed9","title":"Broker avatar","cat":"Yachting","aspect":"landscape"},{"guid":"457a0d4b-9dc6-4464-8c63-0029cc8be8ae","title":"Destination trailer","cat":"Yachting","aspect":"landscape"},{"guid":"58f53d9f-701d-47c9-8705-bc9850e29acd","title":"Yacht trailer","cat":"Yachting","aspect":"landscape"},{"guid":"61a7c178-1e83-4821-9866-51c9ec10bc48","title":"Deconstructed product","cat":"Restaurants","aspect":"portrait"},{"guid":"c759cc3e-cd5f-4ca7-bd49-873ac335e599","title":"Fried chicken Korean commercial","cat":"Restaurants","aspect":"portrait"},{"guid":"b251b912-8c5b-4418-a5df-4ccd0a3f94ac","title":"Restaurant trailer","cat":"Restaurants","aspect":"portrait"},{"guid":"f37822a4-5344-4bbd-868c-974b05814363","title":"Signature Cocktail Build 1","cat":"Restaurants","aspect":"portrait"},{"guid":"36030bfd-023b-4704-8285-6d1076d0846b","title":"Signature Cocktail Build 2","cat":"Restaurants","aspect":"portrait"},{"guid":"5873220c-ea2e-4bf2-a7ae-9d0056605fa2","title":"Sizzle-ASMR close-up","cat":"Restaurants","aspect":"portrait"},{"guid":"b5c9b00d-f7a6-401c-8844-5b353c130fa1","title":"Tiny Cartoon Chefs · Pizza 1","cat":"Restaurants","aspect":"portrait"},{"guid":"f9987279-722f-42dc-b0a4-1a5a996a4d4d","title":"Tiny Cartoon Chefs & Shop · Pizza 2","cat":"Restaurants","aspect":"portrait"},{"guid":"93b4e0b0-4f62-4cd3-8179-95f88c65820c","title":"UGC · Burger","cat":"Restaurants","aspect":"portrait"},{"guid":"dcbf33fb-7b98-4a3d-a5f3-af4c3046248c","title":"A full day at the hotel","cat":"Hotels","aspect":"portrait"},{"guid":"5a62b1b2-ea32-4940-a980-7aa3e347c837","title":"Aerial Drone","cat":"Hotels","aspect":"portrait"},{"guid":"8dbaff49-3895-4e42-876b-b26c9ba48d64","title":"Boutique Hotel Trailer 1","cat":"Hotels","aspect":"portrait"},{"guid":"084980fa-c77f-46d6-8ae5-655f23c63a4c","title":"Boutique Hotel Trailer 2","cat":"Hotels","aspect":"portrait"},{"guid":"e1594823-c399-475e-a4ef-531bfbf18101","title":"Boutique Hotel Trailer 3","cat":"Hotels","aspect":"portrait"},{"guid":"7737a6c1-6448-4c31-93c2-15e0e6525aab","title":"Local secrets concierge tips","cat":"Hotels","aspect":"landscape"},{"guid":"8c977c01-debf-43fb-8131-958d2045ad99","title":"Luxury AirBNB","cat":"Hotels","aspect":"portrait"},{"guid":"74e2fe0e-8669-4a67-8a9e-baec1e8c805c","title":"Pool hour","cat":"Hotels","aspect":"portrait"},{"guid":"8fcd26d6-a4f1-451b-bf6a-7812a2f87746","title":"Pool hour (30s)","cat":"Hotels","aspect":"portrait"},{"guid":"ae8cac01-a16b-489c-835a-19fcbc400f31","title":"Staff stories","cat":"Hotels","aspect":"portrait"},{"guid":"939d437d-57f2-417d-9dc3-afddd56e337d","title":"The breakfast ritual","cat":"Hotels","aspect":"portrait"},{"guid":"a572e8a4-8700-4019-905a-8993cb906846","title":"UGC · Step inside","cat":"Hotels","aspect":"portrait"},{"guid":"907fc8c9-e29a-4670-a3ce-41ada0a0e213","title":"UGC · Unboxing","cat":"Hotels","aspect":"portrait"},{"guid":"9cc6bf49-58c2-40f0-86a5-a8621201855f","title":"Beach · Women sunglasses","cat":"Fashion","aspect":"portrait"},{"guid":"905d269e-395d-46de-80eb-cd661c038190","title":"City street walk · Men Clothing","cat":"Fashion","aspect":"portrait"},{"guid":"1c8076ac-a138-4a98-add1-c042c848fe78","title":"City street walk · Men shoes","cat":"Fashion","aspect":"portrait"},{"guid":"3da2fc7d-a0cc-4d36-8dc6-6fff4db0f26d","title":"City street walk · Men Sunglasses","cat":"Fashion","aspect":"portrait"},{"guid":"c6af3d73-7d81-4376-89a6-4906a14c4e53","title":"City street walk · Women Bags","cat":"Fashion","aspect":"portrait"},{"guid":"73f34312-f179-46d4-96a3-5ea9dae4d961","title":"City street walk · Women Jewelry Necklaces","cat":"Fashion","aspect":"portrait"},{"guid":"92d3cba4-02a8-48e1-923b-ac24a0bf57ad","title":"City street walk · Women Rings","cat":"Fashion","aspect":"portrait"},{"guid":"5c57d3e7-f4ed-418b-8ec0-538bdbeb41d7","title":"City street walk · Women Shoes","cat":"Fashion","aspect":"portrait"},{"guid":"46d2f883-f584-4bec-bd6b-06575bbbfd37","title":"City street walk · Women Watches","cat":"Fashion","aspect":"portrait"},{"guid":"91b17e97-f863-42dd-9b61-3938047cf165","title":"Get ready with me trailer 1","cat":"Fashion","aspect":"portrait"},{"guid":"61b82516-66cc-4219-82b9-cf7127e6f15c","title":"Get ready with me trailer 2","cat":"Fashion","aspect":"portrait"},{"guid":"9462a9f0-cd04-45b9-a4db-d1135867ab59","title":"Sneaker commercial","cat":"Fashion","aspect":"portrait"},{"guid":"c2484f44-98a7-4888-bb97-206d1f271a9e","title":"T-shirt commercial","cat":"Fashion","aspect":"portrait"},{"guid":"d2f5035d-ef61-4a0b-9eab-a132139bb576","title":"Dino attack · Snacks","cat":"Food & Drinks","aspect":"portrait"},{"guid":"abb11735-0a49-4500-9c68-61238cd352c5","title":"Lifestyle trailer · Wine","cat":"Food & Drinks","aspect":"portrait"},{"guid":"d2ae7e26-d338-4d2b-a48c-966eb2818c5f","title":"Motion Ad · Drinks","cat":"Food & Drinks","aspect":"portrait"},{"guid":"7e6db3e2-6464-4bed-b1f1-d827d9782722","title":"Own the roll · Drinks","cat":"Food & Drinks","aspect":"portrait"},{"guid":"18d57073-d7f5-41cd-9fe7-89f333122a92","title":"POV running · Drinks","cat":"Food & Drinks","aspect":"portrait"},{"guid":"b62fb919-1c33-49c2-9c89-fa6e5ddffcda","title":"POV running · Snacks","cat":"Food & Drinks","aspect":"portrait"},{"guid":"b3ceda33-e8ee-4e69-b68e-5e2d2df9af35","title":"Stretched hands · Snacks","cat":"Food & Drinks","aspect":"portrait"},{"guid":"b972e449-db22-4e7a-a781-650e4f660eb3","title":"Lipgloss commercial 2","cat":"Beauty","aspect":"portrait"},{"guid":"357528f8-8fb0-406e-87e0-031c9a1e68b8","title":"Motion Ad · Vitamines","cat":"E-commerce","aspect":"portrait"},{"guid":"859c9b48-f707-487b-b252-29c7d2f43fb2","title":"Pore Close-Up","cat":"Beauty","aspect":"portrait"},{"guid":"c789d7ac-c763-4e1e-a989-547c140b1ff0","title":"7-Day Time Skip","cat":"Beauty","aspect":"portrait"},{"guid":"3f32efb1-57f9-4f89-b1a0-539d5f932da7","title":"UGC - Partner Reacts","cat":"Beauty","aspect":"portrait"},{"guid":"4126912e-eaa8-4521-9ab3-6fe79ec478b1","title":"UGC - Get ready with me","cat":"Beauty","aspect":"portrait"},{"guid":"f34fd916-c820-42e1-aba1-5d1cf3168f11","title":"UGC - Dermatologist Made Me Stop","cat":"Beauty","aspect":"portrait"},{"guid":"007dd29c-28e0-462f-b030-c4c51d99c330","title":"Logo branding - ASMR","cat":"Logo Branding","aspect":"portrait"},{"guid":"5664f627-3dc1-4704-92a1-a3de3a3df376","title":"UGC - Cafe - Take Me With You POV","cat":"Restaurants","aspect":"portrait"},{"guid":"a3cf2564-edf9-4cfe-a0ad-451983af4fca","title":"UGC - Taste reaction souvlaki 1","cat":"Restaurants","aspect":"portrait"},{"guid":"d4252ab4-c7b5-43b2-a684-d3f43cdccc57","title":"UGC - Taste reaction souvlaki 2","cat":"Restaurants","aspect":"portrait"},{"guid":"56711b33-fe12-42fe-b93d-06dc04fc391d","title":"Delivery - Giraffe 2","cat":"Restaurants","aspect":"portrait"},{"guid":"88741833-1b07-4673-b1b6-d418d2c88117","title":"Motion Ad - Pizza","cat":"Restaurants","aspect":"portrait"},{"guid":"820f83fa-6ac2-4b9e-bff4-d8db2231df82","title":"Motion Ad - Souvlaki","cat":"Restaurants","aspect":"portrait"}];
+const m3u8   = g => `${HOST}/${g}/playlist.m3u8`;
+const poster = g => `${HOST}/${g}/thumbnail.jpg`;
+
+// ── HLS attach (mirrors film.mystage.ai src/lib/hls.ts) ──
+function attachHls(video, guid){
+  if (video._attached) return; video._attached = true;
+  const src = m3u8(guid);
+  if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = src;                                   // Safari native HLS
+  } else if (window.Hls && Hls.isSupported()) {
+    const hls = new Hls({ maxBufferLength: 8, capLevelToPlayerSize: true });
+    hls.loadSource(src); hls.attachMedia(video);
+  } else {
+    video.src = src;
+  }
+  video.play().catch(()=>{});
+}
+
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    const v = e.target.querySelector('video'); if (!v) return;
+    if (e.isIntersecting) attachHls(v, e.target.dataset.guid);
+    else v.pause();
+  });
+}, { threshold: 0.2 });
+
+function tile(v, cls){
+  const el = document.createElement('div');
+  el.className = `tile lift rounded-xl ${cls}`;
+  el.dataset.guid = v.guid; el.dataset.cat = v.cat;
+  el.innerHTML = `
+    <span class="badge tracking-widest">${v.cat.toUpperCase()}</span>
+    <video poster="${poster(v.guid)}" muted loop playsinline preload="none"></video>
+    <div class="pp"><span class="grid place-items-center h-12 w-12 rounded-full bg-white/15 backdrop-blur border border-white/30"><span class="mi text-[26px]">play_arrow</span></span></div>
+    <div class="meta"><div class="font-medium text-sm leading-tight">${v.title}</div></div>`;
+  el.addEventListener('click', ()=>openLb(v.guid));
+  io.observe(el);
+  return el;
+}
+
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+
+let activeCat = 'All';
+function renderGallery(){
+  const g = document.getElementById('gallery'); g.innerHTML='';
+  const pool = activeCat==='All' ? VIDEOS : VIDEOS.filter(v=>v.cat===activeCat);
+  shuffle(pool).slice(0,10).forEach(v=> g.appendChild(tile(v,'aspect-[3/4]')));
+}
+function renderHero(){
+  const b = document.getElementById('hero-bento'); b.innerHTML='';
+  const land = VIDEOS.filter(v=>v.aspect==='landscape');
+  const big = (shuffle(land)[0]) || shuffle(VIDEOS)[0];
+  const rest = shuffle(VIDEOS.filter(v=>v.guid!==big.guid)).slice(0,2);
+  b.appendChild(tile(big,'col-span-2 aspect-video glow'));
+  b.appendChild(tile(rest[0],'aspect-square'));
+  b.appendChild(tile(rest[1],'aspect-square'));
+}
+function reshuffle(){ renderHero(); renderGallery(); }
+
+function renderFilters(){
+  const cats = ['All', ...Array.from(new Set(VIDEOS.map(v=>v.cat)))];
+  const f = document.getElementById('filters'); f.innerHTML='';
+  cats.forEach(c=>{
+    const b=document.createElement('button');
+    b.textContent=c;
+    b.className='px-3.5 py-1.5 rounded-lg border border-line text-zinc-400 hover:text-white hover:border-violet/50 transition '+(c===activeCat?'chip-active':'');
+    b.onclick=()=>{ activeCat=c; renderFilters(); renderGallery(); };
+    f.appendChild(b);
+  });
+}
+
+// ── Platform pricing (real, mystage.ai/pricing) ──
+const PLAT = [
+  {name:'Basic',   was:20,  mo:10,  yr:9.00,   credits:700,   vids:38,  imgs:175,  blurb:'Light users — flexibility on both images and short videos.', pop:false},
+  {name:'Plus',    was:44,  mo:22,  yr:19.83,  credits:1700,  vids:94,  imgs:425,  blurb:'Regular creators who post frequently.', pop:true},
+  {name:'Pro',     was:98,  mo:49,  yr:44.08,  credits:3900,  vids:216, imgs:975,  blurb:'Daily needs and small teams.', pop:false},
+  {name:'Creator', was:158, mo:79,  yr:71.08,  credits:6500,  vids:361, imgs:1625, blurb:'High-output creators, influencers & small studios.', pop:false},
+  {name:'Max',     was:238, mo:119, yr:107.08, credits:10000, vids:555, imgs:2500, blurb:'Full power for agencies, studios & content farms.', pop:false},
+];
+let billing='yearly';
+function renderPlat(){
+  const wrap=document.getElementById('plat-cards'); wrap.innerHTML='';
+  PLAT.forEach(p=>{
+    const price = billing==='yearly' ? p.yr.toFixed(2).replace(/\.00$/,'') : p.mo;
+    const note  = billing==='yearly' ? 'billed yearly · save 55%' : 'per month';
+    const popBorder = p.pop ? 'bg-gradient-to-b from-violet/18 to-transparent border-violet/45' : 'glass';
+    const el=document.createElement('div');
+    el.className=`rounded-2xl p-5 lift relative border ${popBorder}`;
+    el.innerHTML = `
+      ${p.pop?'<span class="absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] tracking-widest bg-violet text-black px-2 py-1 rounded-full font-bold whitespace-nowrap">MOST POPULAR</span>':''}
+      <h3 class="text-base font-bold">${p.name}</h3>
+      <div class="mt-3 flex items-baseline gap-1.5">
+        <span class="text-zinc-500 line-through text-sm">$${p.was}</span>
+        <span class="text-2xl font-extrabold">$${price}</span>
+        <span class="text-[11px] text-zinc-500">/mo</span>
+      </div>
+      <div class="text-[10px] text-zinc-500">${note}</div>
+      <div class="mt-3 rounded-lg bg-violet/10 border border-violet/20 px-3 py-2 text-center">
+        <div class="text-violet font-bold text-sm">${p.credits.toLocaleString()} credits</div>
+        <div class="text-[10px] text-zinc-500">${billing==='yearly'?'per month':'per month'}</div>
+      </div>
+      <p class="mt-3 text-[11px] text-zinc-400 leading-snug">${p.blurb}</p>
+      <div class="mt-2 text-[10px] text-zinc-500">≈ up to ${p.vids} videos / ${p.imgs.toLocaleString()} images</div>
+      <a href="#" class="mt-4 block text-center py-2 rounded-lg ${p.pop?'bg-violet text-black font-semibold hover:bg-violet/80':'border border-line hover:border-white'} transition text-sm">Choose ${p.name}</a>`;
+    wrap.appendChild(el);
+  });
+}
+function setBilling(b){
+  billing=b;
+  document.getElementById('bill-mo').className='px-5 py-2 rounded-full font-medium transition '+(b==='monthly'?'bg-violet text-black':'text-zinc-400');
+  document.getElementById('bill-yr').className='px-5 py-2 rounded-full font-medium transition '+(b==='yearly'?'bg-violet text-black':'text-zinc-400');
+  renderPlat();
+}
+
+function showPlan(which){
+  const film = which==='film';
+  document.getElementById('plan-film').style.display = film?'block':'none';
+  document.getElementById('plan-plat').style.display = film?'none':'block';
+  document.getElementById('tab-film').className = 'px-6 py-2.5 rounded-xl text-sm font-semibold transition flex items-center gap-2 '+(film?'bg-violet text-black':'text-zinc-400 hover:text-white');
+  document.getElementById('tab-plat').className = 'px-6 py-2.5 rounded-xl text-sm font-semibold transition flex items-center gap-2 '+(film?'text-zinc-400 hover:text-white':'bg-violet text-black');
+}
+
+function openLb(guid){
+  const lb=document.getElementById('lb'), v=document.getElementById('lb-video');
+  v._attached=false; v.muted=false; attachHls(v,guid); lb.classList.add('on');
+}
+function closeLb(e){
+  if(e && e.target && e.target.id==='lb-video') return;
+  const v=document.getElementById('lb-video');
+  v.pause(); v.removeAttribute('src'); v._attached=false;
+  document.getElementById('lb').classList.remove('on');
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLb(); });
+
+// init
+if (location.protocol === 'file:') document.getElementById('proto-warn').style.display='block';
+renderFilters(); renderHero(); renderGallery(); renderPlat();
+</script>
+</body>
+</html>
